@@ -13,7 +13,7 @@ RUN echo y | /opt/android-sdk-linux/tools/android update sdk --filter platform-t
 ENV ANDROID_HOME /opt/android-sdk-linux
 
 # Set up and run emulator
-RUN echo no | android create avd --force -n test -t android-19
+RUN echo no | /opt/android-sdk-linux/tools/android create avd --force -n test -t android-19
 # Avoid emulator assumes HOME as '/'.
 ENV HOME /root
 ADD wait-for-emulator /usr/local/bin/
