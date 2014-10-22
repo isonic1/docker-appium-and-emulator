@@ -1,8 +1,8 @@
 FROM ksoichiro/android
-MAINTAINER Justin Ison 
+MAINTAINER isonic1 
 
 # Main Android SDK                 
-RUN echo y | android update sdk --filter platform-tools,build-tools-19.1.0,sysimg-19,android-19,extra-android-support --no-ui --force
+RUN echo y | android update sdk --all --filter platform-tools,build-tools-19.1.0,sysimg-19,android-19,extra-android-support,extra-google-play-services --no-ui --force
 
 # Set up and run emulator
 RUN echo no | android create avd --force -n test -t android-19
