@@ -1,19 +1,11 @@
-FROM ubuntu:14.04
+FROM ksoichiro/android
 MAINTAINER Justin Ison 
 
-RUN apt-get update
-RUN apt-get install -y wget
-
-# install Android SDK dependencies
-RUN apt-get install -y openjdk-7-jre-headless lib32z1 lib32ncurses5 lib32bz2-1.0 g++-multilib
-    
-# Main Android SDK
-RUN wget -qO- "http://dl.google.com/android/android-sdk_r23.0.2-linux.tgz" | tar -zxv -C /opt/                       
-RUN echo y | /opt/android-sdk-linux/tools/android update sdk --filter platform-tools,build-tools-19.1.0,sysimg-19,android-19,extra-android-support --no-ui --force
-ENV ANDROID_HOME /opt/android-sdk-linux
+# Main Android SDK                 
+RUN echo y | android update sdk --filter platform-tools,build-tools-19.1.0,sysimg-19,android-19,extra-android-support --no-ui --force
 
 # Set up and run emulator
-RUN echo no | /opt/android-sdk-linux/tools/android create avd --force -n test -t android-19
+RUN echo no | android create avd --force -n test -t android-19
 # Avoid emulator assumes HOME as '/'.
 ENV HOME /root
 ADD wait-for-emulator /usr/local/bin/
