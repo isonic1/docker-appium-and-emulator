@@ -13,7 +13,7 @@ RUN echo y | /opt/android-sdk-linux/tools/android update sdk --filter platform-t
 
 ENV ANDROID_HOME /opt/android-sdk-linux
 
-RUN echo no | /opt/android-sdk-linux/tools/android create avd --force -n TEST -t android-19 --abi default/x86 -gpu on
+RUN echo no | /opt/android-sdk-linux/tools/android create avd --force -n TEST -t android-19 --abi default/x86
 ADD wait-for-emulator /usr/local/bin/
 ADD start-emulator /usr/local/bin/
 echo | /opt/android-sdk-linux/platform-tools/abd devices
