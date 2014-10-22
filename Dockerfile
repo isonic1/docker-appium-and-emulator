@@ -10,6 +10,7 @@ RUN echo no | android create avd --force -n test -t android-19
 ENV HOME /root
 ADD wait-for-emulator /usr/local/bin/
 ADD start-emulator /usr/local/bin/
+RUN echo | adb devices
 
 RUN apt-get -y install software-properties-common
 RUN add-apt-repository ppa:chris-lea/node.js
