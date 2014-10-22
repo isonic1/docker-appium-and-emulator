@@ -8,10 +8,15 @@ RUN apt-get install -y wget
 RUN apt-get install -y openjdk-7-jre-headless lib32z1 lib32ncurses5 lib32bz2-1.0 g++-multilib
     
 # Main Android SDK
-RUN wget -qO- "http://dl.google.com/android/android-sdk_r23.0.2-linux.tgz" | tar -zxv -C /opt/
-RUN echo y | /opt/android-sdk-linux/tools/android update sdk --all --filter platform-tools,build-tools-20.0.0 --no-ui --force
+RUN wget -qO- "http://dl.google.com/android/android-sdk_r23.0.2-linux.tgz" | tar -zxv -C /opt/                           
+RUN echo y | /opt/android-sdk-linux/tools/android update sdk --filter platform-tools,build-tools-19.0.3,sysimg-19,android-19,extra-android-support --no-ui --force
 
 ENV ANDROID_HOME /opt/android-sdk-linux
+
+RUN echo no | android create avd --force -n TEST -t android-19
+ADD wait-for-emulator /usr/local/bin/
+ADD start-emulator /usr/local/bin/
+echo | /opt/android-sdk-linux/platform-tools/abd devices
 
 RUN apt-get -y install software-properties-common
 RUN add-apt-repository ppa:chris-lea/node.js
