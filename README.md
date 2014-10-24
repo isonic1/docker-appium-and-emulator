@@ -2,7 +2,7 @@
 * Appium Server setup for android emulator
 * start a container by running: docker run -i -p 4723:4723 isonic1/appium-test
 
-Contains the following software:
+- Contains the following software:
 	- ubuntu 14.04
 	- openjdk 7
 	- nodejs
