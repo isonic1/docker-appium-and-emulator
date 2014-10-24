@@ -1,30 +1,31 @@
-FROM ksoichiro/android
-MAINTAINER isonic1 
+FROM ubuntu:14.04
+MAINTAINER isonic1
 
-# Main Android SDK                 
-RUN echo yes | android update sdk --filter platform-tools,build-tools-19.1.0,sysimg-19,android-19,extra-android-support,extra-google-play-services --no-ui --force
+RUN apt-get update
+RUN apt-get install -y wget
 
-# Set up and run emulator
-RUN echo no | android create avd --force -n test -t android-19
-# Avoid emulator assumes HOME as '/'.
-ENV HOME /root
-ADD wait-for-emulator /usr/local/bin/
-ADD start-emulator /usr/local/bin/
-RUN echo | adb devices
-
+# install Android SDK Appium dependencies
+RUN apt-get install -y openjdk-7-jre-headless lib32z1 lib32ncurses5 lib32bz2-1.0 g++-multilib
 RUN apt-get -y install software-properties-common
 RUN add-apt-repository ppa:chris-lea/node.js
 RUN apt-get update
 RUN apt-get -y install nodejs
 
-RUN mkdir /opt/appium
-RUN useradd -m -s /bin/bash appium
-RUN chown -R appium:appium /opt/appium
+#create user
+RUN useradd -m -s /bin/bash automator
+USER automator
+    
+# Main Android SDK in user dir
+RUN wget -qO- "http://dl.google.com/android/android-sdk_r23.0.2-linux.tgz" | tar -zxv -C /home/automator
+RUN echo y | /home/automator/android-sdk-linux/tools/android update sdk --no-ui --all --filter platform-tools,build-tools-19.1.0,system-image,android-19,extra-android-support --force
+ENV ANDROID_HOME /home/automator/android-sdk-linux
+ENV ANDROID_SDK_HOME /home/automator/.android
+RUN echo no | /home/automator/android-sdk-linux/tools/android create avd --force -n ANDROID -t android-19 --abi default/x86 --skin "HVGA"
 
-USER appium
-ENV HOME /home/appium
+RUN mkdir /home/automator/appium
+ENV HOME /home/automator/appium
+RUN cd /home/automator/appium && npm install appium
 
-RUN cd /opt/appium && npm install appium
-
+#Open appium port, start and wait for emulator, start appium server
 EXPOSE 4723
-CMD /opt/appium/node_modules/appium/bin/appium.js
+CMD (/home/automator/android-sdk-linux/tools/emulator -verbose -avd ANDROID -no-skin -no-audio -no-window&) && sleep 30 && /home/automator/appium/node_modules/appium/bin/appium.js --device-ready-timeout 180
