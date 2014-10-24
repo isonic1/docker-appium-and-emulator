@@ -1,7 +1,7 @@
-appium-android-emulator
-Appium Server setup for android emulator
+* appium-android-emulator
+* Appium Server setup for android emulator
 
-start a container by running: docker run -i -p 4723:4723 isonic1/appium-test
+* start a container by running: docker run -i -p 4723:4723 isonic1/appium-test
 
 contains the following software:
 ubuntu 14.04
@@ -11,7 +11,7 @@ appium server
 android sdk 19.1.0
 android emulator 19
 
-#Start new test session
+#Test in IRB
 $ irb
 
 require 'appium_lib'
@@ -33,3 +33,4 @@ caps = {
 }
 
 Appium::Driver.new(caps).start_driver
+Appium.promote_appium_methods Object
