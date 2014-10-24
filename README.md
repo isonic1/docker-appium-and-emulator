@@ -1,6 +1,6 @@
 #appium-and-emulator
 * Appium Server setup for android emulator
-* start a container by running: docker run -i -p 4723:4723 isonic1/appium-test
+* start a container by running: docker run -i -p 4723:4723 isonic1/appium-and-emulator:latest
 
 - Contains the following software:
 	- ubuntu 14.04
