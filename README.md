@@ -19,10 +19,10 @@ caps = {
   caps: {
     platformName: "Android",
     deviceName: "ANDROID",
-    appActivity: '<your_app_activity>',
-    appWaitActivity: '<your_app_wait_activity>', 
-    appPackage: '<your_app_package>', 
-    app: 'http://<url_to_your_app_location>',
+    appActivity: 'your_app_activity',
+    appWaitActivity: 'your_app_wait_activity', 
+    appPackage: 'your_app_package>', 
+    app: 'http://url_to_your_app_location(#localhost/webrick, s3, dropbox etc...)',
     newCommandTimeout: '9999'
   },
   appium_lib: {
