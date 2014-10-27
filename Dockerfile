@@ -8,7 +8,6 @@ RUN apt-get install -y wget
 RUN apt-get install -y openjdk-7-jre-headless lib32z1 lib32ncurses5 lib32bz2-1.0 g++-multilib
 RUN apt-get -y install software-properties-common
 RUN add-apt-repository ppa:chris-lea/node.js
-RUN apt-get update
 RUN apt-get -y install nodejs
 
 #create user
