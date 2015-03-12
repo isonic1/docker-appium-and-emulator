@@ -13,25 +13,26 @@
 	- android emulator 19
 
 #Test in IRB
+```ruby
 $ irb
 
 2.1.1 :199 > require 'appium_lib'
 
 2.1.1 :199 > caps = {
-  				caps: {
-    				platformName: "Android",
-    				deviceName: "ANDROID",
-    				appActivity: 'your_app_activity',
-    				appWaitActivity: 'your_app_wait_activity', 
-    				appPackage: 'your_app_package>', 
-    				app: 'http://url_to_your_app_location(e.g.localhost/webrick, s3, dropbox)',
-    				newCommandTimeout: '9999'
-  			  	},
-  			  	appium_lib: {
-    				server_url: 'http://your_docker_ip_address:4723/wd/hub',
-    				wait: 300
- 			   	}
-			}
+  		caps: {
+    			platformName: "Android",
+    			deviceName: "ANDROID",
+    			appActivity: 'your_app_activity',
+    			appWaitActivity: 'your_app_wait_activity', 
+    			appPackage: 'your_app_package', 
+    			app: 'http://url_to_your_app',
+    			newCommandTimeout: '9999'
+  			},
+  		appium_lib: {
+    			server_url: 'http://your_docker_ip_address:4723/wd/hub',
+    			wait: 300
+ 			    }
+		}
 
 2.1.1 :199 > Appium::Driver.new(caps).start_driver
 2.1.1 :199 > Appium.promote_appium_methods Object
